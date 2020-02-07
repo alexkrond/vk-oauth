@@ -14,4 +14,11 @@ router.get('/vk', passport.authenticate('vkontakte', {
   scope: ['friends', 'offline']
 }));
 
+router.get('/vk/redirect',
+    passport.authenticate('vkontakte'),
+    (req, res) => {
+      res.send('callback URI');
+    }
+);
+
 module.exports = router;
