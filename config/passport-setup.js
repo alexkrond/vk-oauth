@@ -1,5 +1,5 @@
 const passport = require('passport');
-const VKontakteStrategy = require('passport-vkontakte').Strategy;
+const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 const User = require('../models/user-model.js');
 
 passport.serializeUser((user, done) => {
@@ -14,13 +14,16 @@ passport.deserializeUser((id, done) => {
 });
 
 passport.use(
-    new VKontakteStrategy({
+    'vkontakte',
+    new OAuth2Strategy({
+          authorizationURL: 'https://oauth.vk.com/authorize',
+          tokenURL: 'https://oauth.vk.com/access_token',
           clientID: process.env.VK_APP_ID,
           clientSecret: process.env.VK_APP_SECRET,
           callbackURL: '/auth/vk/redirect',
           apiVersion: '5.103'
         },
-        (accessToken, refreshToken, params, profile, done) => {
+        (accessToken, refreshToken, profile, done) => {
           User.findOne({vkId: profile.id})
               .then(currentUser => {
                 if (currentUser) {
