@@ -23,6 +23,12 @@ passport.use(
           apiVersion: '5.103'
         },
         async (accessToken, refreshToken, profile, done) => {
+          const uri = `https://api.vk.com/method/users.get?v=5.103&access_token=${accessToken}`;
+          const res = await fetch(uri);
+          const json = await res.json();
+          profile.id = json.response[0].id;
+          profile.displayName = json.response[0].first_name + ' ' + json.response[0].last_name;
+
           const currentUser = await User.findOne({vkId: profile.id});
           if (currentUser) {
             done(null, currentUser);
