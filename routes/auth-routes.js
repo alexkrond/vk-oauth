@@ -3,7 +3,7 @@ const passport = require('passport');
 const router = express.Router();
 
 router.get('/login', (req, res) => {
-  if(!req.user) {
+  if (!req.user) {
     res.render('login');
   } else {
     res.redirect('/');
@@ -12,19 +12,19 @@ router.get('/login', (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/auth/login');
 });
 
 router.get('/vk', passport.authenticate('vkontakte', {
   scope: ['friends', 'offline']
-  // scope: ['friends', 'offline', 'email']
 }));
 
 router.get('/vk/redirect',
-    passport.authenticate('vkontakte'),
-    (req, res) => {
-      res.redirect('/');
-    }
+    passport.authenticate('vkontakte',
+        {
+          successRedirect: '/',
+          failureRedirect: '/auth/login'
+        }),
 );
 
 module.exports = router;
