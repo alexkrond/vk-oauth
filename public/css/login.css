@@ -15,11 +15,16 @@
 .vk-oauth {
   width: 14em;
   height: 2em;
-  font-size: 14px;
+  font-size: 18px;
   font-family: sans-serif;
   line-height: 2em;
   color: white;
   text-decoration: none;
   text-align: center;
   background: #4a76a8;
+  border-radius: 0.5em;
+}
+
+.vk-oauth:hover {
+  background: #3167aa;
 }
