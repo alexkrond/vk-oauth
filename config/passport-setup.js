@@ -1,6 +1,7 @@
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 const User = require('../models/user-model.js');
+const fetch = require('node-fetch');
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
@@ -21,22 +22,17 @@ passport.use(
           callbackURL: '/auth/vk/redirect',
           apiVersion: '5.103'
         },
-        (accessToken, refreshToken, profile, done) => {
-          User.findOne({vkId: profile.id})
-              .then(currentUser => {
-                if (currentUser) {
-                  done(null, currentUser);
-                } else {
-                  new User({
-                    vkId: profile.id,
-                    username: profile.displayName,
-                    accessToken: accessToken
-                  }).save()
-                      .then(newUser => {
-                        done(null, newUser);
-                      });
-                }
-              });
-        }
-    )
+        async (accessToken, refreshToken, profile, done) => {
+          const currentUser = await User.findOne({vkId: profile.id});
+          if (currentUser) {
+            done(null, currentUser);
+          } else {
+            const newUser = await new User({
+              vkId: profile.id,
+              username: profile.displayName,
+              accessToken: accessToken
+            }).save();
+            done(null, newUser);
+          }
+        })
 );
