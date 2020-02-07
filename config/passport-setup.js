@@ -24,7 +24,6 @@ passport.use(
           User.findOne({vkId: profile.id})
               .then(currentUser => {
                 if (currentUser) {
-                  console.log(currentUser);
                   done(null, currentUser);
                 } else {
                   new User({
@@ -33,7 +32,6 @@ passport.use(
                     accessToken: accessToken
                   }).save()
                       .then(newUser => {
-                        console.log(newUser);
                         done(null, newUser);
                       });
                 }
