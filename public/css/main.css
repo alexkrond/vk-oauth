@@ -1,0 +1,68 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.container {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+.container-align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logout {
+  margin: 20px 0 10px 0;
+  display: block;
+  width: 6em;
+  height: 2em;
+  font-size: 14px;
+  line-height: 2em;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  background: #4a76a8;
+  border-radius: 0.5em;
+}
+
+.logout:hover {
+  background: #3167aa;
+}
+
+.username {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.friends-list {
+  list-style: none;
+}
+
+.friend {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.friend-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.fiend-name {
+  margin-left: 10px;
+  color: #2a5885;
+  font-size: 16px;
+}
+
+.fiend-name:hover {
+  text-decoration: underline;
+}
