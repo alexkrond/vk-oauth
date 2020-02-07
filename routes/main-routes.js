@@ -14,7 +14,7 @@ const getVKFriends = async (user, count) => {
   const uri = 'https://api.vk.com/method/friends.get';
   const params = {
     access_token: user.accessToken,
-    fields: 'photo_50',
+    fields: 'photo_50,domain',
     order: 'random',
     v: '5.103',
     count
