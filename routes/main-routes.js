@@ -22,7 +22,7 @@ const getVKFriends = async (user, count) => {
   const query = Object.keys(params).map(k => k + '=' + params[k]).join('&');
   const res = await fetch(uri + '?' + query);
   const json = await res.json();
-  return json.response.items;
+  return json.error ? [] : json.response.items;
 };
 
 router.get('/', authCheck, async (req, res) => {
